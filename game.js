@@ -6,6 +6,7 @@ function Game(parent) {
   self.onGameOverCallback = null;
 
   self._init();
+  self._initGameElements();
   self._startLoop();
 }
 
@@ -49,50 +50,98 @@ Game.prototype._init = function () {
   
 }
 
+// Inicializa los Screen, players and Items
+Game.prototype._initGameElements = function() {
+
+    var self = this;
+
+      // Dibujo los Screen
+    self.screen = new Screen(self.canvasElement,1,self.canvasElement.width-5,1,(self.canvasElement.height/2)-5);
+    self.screen2 = new Screen(self.canvasElement,1,self.canvasElement.width-5,(self.canvasElement.height/2)+5,self.canvasElement.height-5);
+    self.screen.color = 'blue';
+    self.screen2.color = 'green';
+
+    // Creo el array de items, el jugador y le asigno Screen y límites del screen
+    self.items = [];
+
+    self.player = new Player(self.canvasElement);
+    self.player.screen = 1;
+
+
+    self.player.xMin = self.screen.xMin; 
+    self.player.yMin = self.screen.yMin;
+    self.player.xMax = self.screen.xMax;
+    self.player.yMax = self.screen.yMax;
+    self.player.color = 'red';
+
+
+
+    self.items2 = [];
+    self.items2.xMin = self.screen.xMin; 
+    self.items2.yMin = self.screen.yMin;
+    self.items2.xMax = self.screen.xMax;
+    self.items2.yMax = self.screen.yMax;
+
+
+    self.player2 = new Player(self.canvasElement);
+    self.player2.screen = 2;
+
+    self.player2.x = self.screen2.xMin; 
+    self.player2.y = self.screen2.yMin;
+    self.player2.xMin = self.screen2.xMin; 
+    self.player2.yMin = self.screen2.yMin;
+    self.player2.xMax = self.screen2.xMax;
+    self.player2.yMax = self.screen2.yMax;
+    self.player2.color = 'yellow';
+
+
+
+}
+
 Game.prototype._startLoop = function () {
   var self = this;
 
   self.score = 0;
   
 
-  // Dibujo los Screen
-  self.screen = new Screen(self.canvasElement,1,self.canvasElement.width-5,1,(self.canvasElement.height/2)-5);
-  self.screen2 = new Screen(self.canvasElement,1,self.canvasElement.width-5,(self.canvasElement.height/2)+5,self.canvasElement.height-5);
-  self.screen.color = 'blue';
-  self.screen2.color = 'green';
+  // // Dibujo los Screen
+  // self.screen = new Screen(self.canvasElement,1,self.canvasElement.width-5,1,(self.canvasElement.height/2)-5);
+  // self.screen2 = new Screen(self.canvasElement,1,self.canvasElement.width-5,(self.canvasElement.height/2)+5,self.canvasElement.height-5);
+  // self.screen.color = 'blue';
+  // self.screen2.color = 'green';
 
-  // Creo el array de items, el jugador y le asigno Screen y límites del screen
-  self.items = [];
+  // // Creo el array de items, el jugador y le asigno Screen y límites del screen
+  // self.items = [];
  
-  self.player = new Player(self.canvasElement);
-  self.player.screen = 1;
+  // self.player = new Player(self.canvasElement);
+  // self.player.screen = 1;
 
 
-  self.player.xMin = self.screen.xMin; 
-  self.player.yMin = self.screen.yMin;
-  self.player.xMax = self.screen.xMax;
-  self.player.yMax = self.screen.yMax;
-  self.player.color = 'red';
+  // self.player.xMin = self.screen.xMin; 
+  // self.player.yMin = self.screen.yMin;
+  // self.player.xMax = self.screen.xMax;
+  // self.player.yMax = self.screen.yMax;
+  // self.player.color = 'red';
   
 
 
-  self.items2 = [];
-  self.items2.xMin = self.screen.xMin; 
-  self.items2.yMin = self.screen.yMin;
-  self.items2.xMax = self.screen.xMax;
-  self.items2.yMax = self.screen.yMax;
+  // self.items2 = [];
+  // self.items2.xMin = self.screen.xMin; 
+  // self.items2.yMin = self.screen.yMin;
+  // self.items2.xMax = self.screen.xMax;
+  // self.items2.yMax = self.screen.yMax;
   
 
-  self.player2 = new Player(self.canvasElement);
-  self.player2.screen = 2;
+  // self.player2 = new Player(self.canvasElement);
+  // self.player2.screen = 2;
   
-  self.player2.x = self.screen2.xMin; 
-  self.player2.y = self.screen2.yMin;
-  self.player2.xMin = self.screen2.xMin; 
-  self.player2.yMin = self.screen2.yMin;
-  self.player2.xMax = self.screen2.xMax;
-  self.player2.yMax = self.screen2.yMax;
-  self.player2.color = 'yellow';
+  // self.player2.x = self.screen2.xMin; 
+  // self.player2.y = self.screen2.yMin;
+  // self.player2.xMin = self.screen2.xMin; 
+  // self.player2.yMin = self.screen2.yMin;
+  // self.player2.xMax = self.screen2.xMax;
+  // self.player2.yMax = self.screen2.yMax;
+  // self.player2.color = 'yellow';
   // console.log(self.player2);
 
   
@@ -130,7 +179,7 @@ Game.prototype._startLoop = function () {
     self._updateAll();
     self._renderAll();
 
-    if (self._isPlayerAlive()) {
+    if (self._playerNotArrived()) {
       requestAnimationFrame(loop);
     } else {
       self.onGameOverCallback();
@@ -143,8 +192,8 @@ Game.prototype._startLoop = function () {
 Game.prototype._updateAll = function ()  {
   var self = this;
 
-  self._spawnItem(1);
-  self._spawnItem(2);
+  self._lanzarItems(1);
+  // self._lanzarItems(2);
 
   self.items.forEach(function(item) {
     item.update();
@@ -227,20 +276,38 @@ Game.prototype._clearAll = function ()  {
   self.ctx.clearRect(0, 0, self.width, self.height);
 }
 
-Game.prototype._spawnItem = function (screen)  {
+Game.prototype._lanzarItems = function (screen)  {
   var self = this;
 
   if (screen === 1){
     if (Math.random() > 0.97) {
       
       var randomY = Math.random() * self.screen.yMax * 0.8;
-      var newItem = new Item(self.canvasElement, self.width, randomY,10,5);
+       var newItem = new Item(self.canvasElement, self.width, randomY,10,self.screen.speedPlayer,1);
+    //  var newItem = new ItemSpeedUp(10,self.canvasElement, self.width, randomY,10,5);
 
       //newItem.color = 'yellow';
   //    console.log(newItem.color);
+      //self.newItem.type = 1;
       self.items.push(newItem);
       //self.items.push(new Item(self.canvasElement, self.width, randomY,10,5));
     }
+      // Lanzamiento de Items typo 2 - Dragon Ball
+    if (Math.random() > 0.99) {
+      
+      var randomY = Math.random() * self.screen.yMax * 0.8;
+       var newItem = new Item(self.canvasElement, self.width, randomY,10,self.screen.speedPlayer,2);
+    //  var newItem = new ItemSpeedUp(10,self.canvasElement, self.width, randomY,10,5);
+
+      //newItem.color = 'yellow';
+  //    console.log(newItem.color);
+      //self.newItem.type = 1;
+      self.items.push(newItem);
+      //self.items.push(new Item(self.canvasElement, self.width, randomY,10,5));
+    }
+
+
+
   }
   if (screen === 2){
     if (Math.random() > 0.97) {
@@ -263,17 +330,70 @@ Game.prototype._spawnItem = function (screen)  {
 
 Game.prototype._checkAllCollision = function() {
   var self = this;
+  
 
   self.items.forEach(function(item, idx) {
     if(self.player.checkCollision(item)) {
       self.items.splice(idx, 1);
-      self.player.collided();
+      // self.player.collided();
+      // if (self.items[idx] !== null){
+      //   self.items[idx].vel += 1 ;
+      // }
+    //  collition = true;
+     
+    if (item.type === 1)  {
+      self._speedDown();
+    }else if (item.type === 2){
+      self._speedUp();
+    }
+    
+
     }
   });
+  // if (collition === true){
+  //   self.items[0].collided();
+  // }
+
 }
 
-Game.prototype._isPlayerAlive = function () {
+Game.prototype._speedUp = function(){
   var self = this;
+
+  if (self.screen.speedPlayer < self.screen.speedMaxPlayer){
+    self.items.forEach(function(element,idx){
+      self.items[idx].vel += 1;
+    });
+    self.screen.speedPlayer += 1;
+  }
+  console.log(self.screen.speedPlayer);
+  console.log(self.screen.distanciaActual);
+
+}
+Game.prototype._speedDown = function(){
+  var self = this;
+
+  // Controls the speed is not 0
+  if (self.screen.speedPlayer > self.screen.speedMinPlayer){
+    self.items.forEach(function(element,idx){
+      self.items[idx].vel -= 1;
+    });
+    self.screen.speedPlayer -= 1;
+    
+  }
+  console.log(self.screen.speedPlayer);
+  console.log(self.screen.distanciaActual);
+
+}
+
+
+Game.prototype._playerNotArrived = function () {
+  var self = this;
+  
+  if (self.screen.distanciaActual < 5000 && self.screen.sentDragon == false){
+    var newItem = new Item(self.canvasElement, self.width, 100,100,self.screen.speedPlayer,3);
+    self.items.push(newItem);
+    self.screen.sentDragon = true;
+  }
 
   return self.player.lives > 0;
 }
@@ -282,7 +402,9 @@ Game.prototype._updateUI = function() {
   var self = this;
 
   self.scoreElement.innerText = self.score;
-  self.livesElement.innerText = self.player.lives;
+  self.livesElement.innerText = self.screen.distanciaActual;
+  // self.livesElement.innerText = self.player.lives;
+  
 }
 
 Game.prototype.onOver = function (callback) {

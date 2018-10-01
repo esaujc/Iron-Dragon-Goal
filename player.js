@@ -40,7 +40,7 @@ Player.prototype.render = function (numberPlayer) {
     img.src = "img/piccolo57x55.png";
   }
   
-  
+
 
   self.ctx.drawImage(img, 0, 0, 57,55,self.x,self.y,70,70);
 }
@@ -88,8 +88,9 @@ Player.prototype.checkCollision = function (object) {
   return false;
 }
 
-Player.prototype.collided = function () {
-  var self = this;
+// Player.prototype.collided = function () {
+//   var self = this;
 
-  self.lives -= 1;
-}
+//   self.lives -= 1;
+
+// }
