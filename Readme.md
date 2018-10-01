@@ -2,8 +2,7 @@
 **Dragon 'Goal'**
 
 ## Description
-2 players 'racing', avoiding enemies and trying to arrive the goal before the opponent.
-"Special" elements will help (or not) the players to arrive faster.
+Goku and friends are flying trying to find the the sacred Dragon, dodging Kame-ha and picking Dragon Balls.
 
 
 
