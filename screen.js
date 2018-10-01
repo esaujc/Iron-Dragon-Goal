@@ -9,12 +9,13 @@ function Screen(canvas,xMin,xMax,yMin,yMax){
   self.color;
   //self.items = items; //Esto es un array
   //self.player = player;
-  self.distanciaInicial = 10000;
-  self.distanciaActual = 10000;
+  self.distanciaInicial = 5000;
+  self.distanciaActual = 5000;
   self.sentDragon = false;
   self.speedPlayer = 6;
   self.speedMinPlayer = 3;
   self.speedMaxPlayer = 10;
+  self.end = false;
 }
 
 Screen.prototype.checkGoal = function(distanciaInicial, distanciaActual){

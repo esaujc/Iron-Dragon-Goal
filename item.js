@@ -35,7 +35,7 @@ Item.prototype.render = function () {
     }
     if (self.type === 3){
       img.src = "img/dragol-goal.png";
-      self.ctx.drawImage(img, self.x, self.y, 100,100);
+      self.ctx.drawImage(img, self.x, self.y, 200,250);
 
     }
 
@@ -53,16 +53,16 @@ Item.prototype.isDeath = function () {
   return (self.x + self.size) < 0;
 }
 
-function ItemSpeedUp(currentVel,canvas, x, y, size, vel){
-  var self = this;
+// function ItemSpeedUp(currentVel,canvas, x, y, size, vel){
+//   var self = this;
   
-  Item.call(self,canvas, x, y, size, vel);
-  self.currentVel = currentVel;
+//   Item.call(self,canvas, x, y, size, vel);
+//   self.currentVel = currentVel;
 
-}
-// Esto conecta el constructor hijo con el padre
-ItemSpeedUp.prototype = Object.create(Item.prototype);
-ItemSpeedUp.prototype.constructor = ItemSpeedUp;
+// }
+// // Esto conecta el constructor hijo con el padre
+// ItemSpeedUp.prototype = Object.create(Item.prototype);
+// ItemSpeedUp.prototype.constructor = ItemSpeedUp;
 
 
 Item.prototype.collided = function () {
