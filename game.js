@@ -1,7 +1,7 @@
 function Game(parent) {
   var self = this;
 
-  self.winner = 1;
+  self.winner = 0;
   self.totalDragonBalls = 0;
 
   self.parentElement = parent;
@@ -21,15 +21,20 @@ Game.prototype._init = function () {
       <header class="game__header">
        <div class="player1">
           <img src="img/goku57x55.png" alt="Goku">
-          <div class="distance1">
-            <span class="label">Remaining:</span>
-            <span class="value"></span>
+          <div>
+            <div class="distance1">
+              <span class="label">Remaining:</span>
+              <span class="value"></span>
+            </div>
+            <div class="dragonBalls1">
+            <span class="label">Total Balls: </span>
+              <span class="value"></span>
+            </div>     
           </div>
-          <div class="dragonBalls1">
-          <span class="label">Total Balls: </span>
-            <span class="value"></span>
-          </div>     
         </div>
+
+        <div class="player2">
+        <img src="img/piccolo57x55.png" alt="Piccolo">
         <div>
           <div class="distance2">
             <span class="label">Remaining:</span>
@@ -38,8 +43,11 @@ Game.prototype._init = function () {
           <div class="dragonBalls2">
           <span class="label">Total Balls: </span>
             <span class="value"></span>
-          </div>
-          <img src="img/piccolo57x55.png" alt="Piccolo">
+          </div>     
+        </div>
+      </div>
+
+
 
         </div>
       </header>
@@ -305,7 +313,10 @@ Game.prototype._checkAllCollision = function() {
           self._speedUp(1);
           self.player.dragonBalls++;
         } else if (item.type === 3){
-          self.screen.end = true;
+          self.screen.end = true;  // con esto hay contacto con el objeto
+          //if (self.winner === 0)
+            self.winner = 1; // Se utiliza para saber quien ha llegado primero 
+            self.totalDragonBalls = self.player.dragonBalls;
         }
     }
   });
@@ -322,7 +333,9 @@ Game.prototype._checkAllCollision = function() {
           self.player2.dragonBalls++;
         } else if (item.type === 3){
           self.screen2.end = true;
-          console.log('Lanzado dragon');
+          self.winner = 2;
+          self.totalDragonBalls = self.player2.dragonBalls;
+
         }
     }
   });
@@ -389,7 +402,6 @@ Game.prototype._playerNotArrivedP1 = function () {
     self.items.push(newItem);
     console.log(self.items);
     self.screen.sentDragon = true;
-    console.log("Crea el dragon 1");
   }
 
   if (self.screen.distanciaActual <= 0){

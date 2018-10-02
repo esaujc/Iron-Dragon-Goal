@@ -22,14 +22,14 @@ function main() {
   //  audio.play();
    
     // audio.muted = true;
-    audio.msPlayToDisabled = true;
+    //audio.msPlayToDisabled = true;
     destroySplash();
     buildGame();
   }
 
   function buildSplash() {
     splashElement = buildDom(`
-      <main class="splash container">
+      <main class="splash container background">
         <h1 class="splash__title">Dragon 'Goal'</h1>
         <button>Start</button>
         
@@ -53,7 +53,7 @@ function main() {
   var game = null;
   var handleGameOver = function () {
     destroyGame();
-    buildGameover(game.score);
+    buildGameover(game.winner, game.totalDragonBalls);
   };
 
   function buildGame() {
@@ -74,11 +74,11 @@ function main() {
     buildSplash();
   }
 
-  function buildGameover(score) {
+  function buildGameover(winnerPlayer, totalDragonBalls) {
     gameoverElement = buildDom(`
       <main class="gameover container">
-        <h1>Game over</h1>
-        <p>Your score: <span class="score"></span></p>
+        <h1>Winner Player<span class="winner"></span></h1>
+        <p>Dragon Balls Collected: <span class="dragonBalls"></span></p>
         <button>Restart</button>
       </main>
     `);
@@ -87,8 +87,10 @@ function main() {
     gameoverButton = document.querySelector('button');
     gameoverButton.addEventListener('click', handleGameoverClick);
 
-    var scoreElement = document.querySelector('.score');
-    scoreElement.innerText = score;
+    var winnerElement = document.querySelector('.winner');
+    winnerElement.innerText = winnerPlayer;
+    var dragonBallElement = document.querySelector('.dragonBalls');
+    dragonBallElement.innerText = totalDragonBalls;
   }
 
   function destroyGameover() {
