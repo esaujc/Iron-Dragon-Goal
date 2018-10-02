@@ -27,8 +27,7 @@ Screen.prototype.render = function() {
 
   self.ctx.strokeStyle = self.color;
   self.ctx.strokeRect(self.xMin, self.yMin, self.xMax, self.yMax);
-
-  self.distanciaActual -= self.speedPlayer;  
+  self.distanciaActual -= self.speedPlayer; 
 
 }
 // Render

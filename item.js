@@ -29,20 +29,23 @@ Item.prototype.render = function () {
   // if (numberPlayer === 1){
     if (self.type === 1){
       img.src = "img/ball01.png";
+      self.ctx.drawImage(img, self.x, self.y, 45,30);
+
     }
     if (self.type === 2){
       img.src = "img/Dragon_Ball_1-35x34.png";
+      self.ctx.drawImage(img, self.x, self.y, 45,30);
     }
     if (self.type === 3){
       img.src = "img/dragol-goal.png";
       self.ctx.drawImage(img, self.x, self.y, 200,250);
+      console.log('Pinta dragon');
 
     }
 
   // }
   // self.ctx.drawImage(img, 0, 0, 57,55,self.x,self.y,10,7);
 
-   self.ctx.drawImage(img, self.x, self.y, 45,30);
 
   
 }

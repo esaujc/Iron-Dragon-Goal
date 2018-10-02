@@ -14,6 +14,7 @@ function Player(canvas) {
   self.lives = 5;
   self.screen = 1;
   self.color;
+  self.dragonBalls = 0;
   self.ctx = canvas.getContext('2d');
 }
 
@@ -42,7 +43,7 @@ Player.prototype.render = function (numberPlayer) {
   
 
 
-  self.ctx.drawImage(img, 0, 0, 57,55,self.x,self.y,70,70);
+  self.ctx.drawImage(img, 0, 0, 57,55,self.x,self.y,57,55);
 }
 
 Player.prototype.setDirection = function (direction) {

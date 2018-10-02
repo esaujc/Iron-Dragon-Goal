@@ -2,6 +2,7 @@ function Game(parent) {
   var self = this;
 
   self.winner = 1;
+  self.totalDragonBalls = 0;
 
   self.parentElement = parent;
   self.gameElement = null
@@ -18,13 +19,28 @@ Game.prototype._init = function () {
   self.gameElement = buildDom(`
     <main class="game container">
       <header class="game__header">
-        <div class="lives">
-          <span class="label">Lives:</span>
-          <span class="value"></span>
+       <div class="player1">
+          <img src="img/goku57x55.png" alt="Goku">
+          <div class="distance1">
+            <span class="label">Remaining:</span>
+            <span class="value"></span>
+          </div>
+          <div class="dragonBalls1">
+          <span class="label">Total Balls: </span>
+            <span class="value"></span>
+          </div>     
         </div>
-        <div class="score">
-          <span class="label">Score:</span>
-          <span class="value"></span>
+        <div>
+          <div class="distance2">
+            <span class="label">Remaining:</span>
+            <span class="value"></span>
+          </div>
+          <div class="dragonBalls2">
+          <span class="label">Total Balls: </span>
+            <span class="value"></span>
+          </div>
+          <img src="img/piccolo57x55.png" alt="Piccolo">
+
         </div>
       </header>
       <div class="game__canvas">
@@ -37,8 +53,12 @@ Game.prototype._init = function () {
   self.canvasParentElement = document.querySelector('.game__canvas');
   self.canvasElement = document.querySelector('.canvas');
 
-  self.livesElement = self.gameElement.querySelector('.lives .value');
-  self.scoreElement = self.gameElement.querySelector('.score .value');
+  self.distance1Element = self.gameElement.querySelector('.distance1 .value');
+  self.dragonBalls1Element = self.gameElement.querySelector('.dragonBalls1 .value');
+
+  self.distance2Element = self.gameElement.querySelector('.distance2 .value');
+  self.dragonBalls2Element = self.gameElement.querySelector('.dragonBalls2 .value');
+
 
   self.width = self.canvasParentElement.clientWidth;
   self.height = self.canvasParentElement.clientHeight;
@@ -60,6 +80,9 @@ Game.prototype._initGameElements = function() {
       // Dibujo los Screen
     self.screen = new Screen(self.canvasElement,1,self.canvasElement.width-5,1,(self.canvasElement.height/2)-5);
     self.screen2 = new Screen(self.canvasElement,1,self.canvasElement.width-5,(self.canvasElement.height/2)+5,self.canvasElement.height-5);
+    // self.screen2 = new Screen(self.canvasElement,1,self.canvasElement.width - 10, self.canvasElement.height / 2 + 5, 400);
+    // function Screen(canvas,xMin,xMax,yMin,yMax){
+
     self.screen.color = 'blue';
     self.screen2.color = 'green';
 
@@ -79,10 +102,10 @@ Game.prototype._initGameElements = function() {
 
 
     self.items2 = [];
-    self.items2.xMin = self.screen.xMin; 
-    self.items2.yMin = self.screen.yMin;
-    self.items2.xMax = self.screen.xMax;
-    self.items2.yMax = self.screen.yMax;
+    self.items2.xMin = self.screen2.xMin; 
+    self.items2.yMin = self.screen2.yMin;
+    self.items2.xMax = self.screen2.xMax;
+    self.items2.yMax = self.screen2.yMax;
 
 
     self.player2 = new Player(self.canvasElement);
@@ -103,61 +126,10 @@ Game.prototype._initGameElements = function() {
 Game.prototype._startLoop = function () {
   var self = this;
 
-  self.score = 0;
-  
-
-  // // Dibujo los Screen
-  // self.screen = new Screen(self.canvasElement,1,self.canvasElement.width-5,1,(self.canvasElement.height/2)-5);
-  // self.screen2 = new Screen(self.canvasElement,1,self.canvasElement.width-5,(self.canvasElement.height/2)+5,self.canvasElement.height-5);
-  // self.screen.color = 'blue';
-  // self.screen2.color = 'green';
-
-  // // Creo el array de items, el jugador y le asigno Screen y límites del screen
-  // self.items = [];
- 
-  // self.player = new Player(self.canvasElement);
-  // self.player.screen = 1;
-
-
-  // self.player.xMin = self.screen.xMin; 
-  // self.player.yMin = self.screen.yMin;
-  // self.player.xMax = self.screen.xMax;
-  // self.player.yMax = self.screen.yMax;
-  // self.player.color = 'red';
-  
-
-
-  // self.items2 = [];
-  // self.items2.xMin = self.screen.xMin; 
-  // self.items2.yMin = self.screen.yMin;
-  // self.items2.xMax = self.screen.xMax;
-  // self.items2.yMax = self.screen.yMax;
-  
-
-  // self.player2 = new Player(self.canvasElement);
-  // self.player2.screen = 2;
-  
-  // self.player2.x = self.screen2.xMin; 
-  // self.player2.y = self.screen2.yMin;
-  // self.player2.xMin = self.screen2.xMin; 
-  // self.player2.yMin = self.screen2.yMin;
-  // self.player2.xMax = self.screen2.xMax;
-  // self.player2.yMax = self.screen2.yMax;
-  // self.player2.color = 'yellow';
-  // console.log(self.player2);
+  self.dragonBalls1 = 0;
+  self.dragonBalls2 = 0;
 
   
- // self.screen3 = new Screen(self.canvasElement,1,self.canvasElement.width-1,1,(self.canvasElement.height-1));
- // self.screen2.color = 'green';
-  //self.screen = new Screen(canvas,xMin,xMax,yMin,yMax);
- // self.screen2 = new Screen(canvas,player2,items2,xMin,xMax,yMin,yMax);
-
-  //console.log(screen.player);
-
-  // NUEVO
-  self.goal = [];
-  self.__createGoal();
-
   self.handleKeyDown = function (evt) {
     if (evt.key === "ArrowDown") {
       self.player2.setDirection(1);
@@ -180,9 +152,10 @@ Game.prototype._startLoop = function () {
     self._clearAll();
     self._updateAll();
     self._renderAll();
-    self._playerNotArrived();
+    self._playerNotArrivedP1();
+    self._playerNotArrivedP2();
 
-    if (self.screen.end === false) {
+    if ((self.screen.end === false) && (self.screen2.end === false)) {
       requestAnimationFrame(loop);
     } else {
       self.onGameOverCallback();
@@ -226,34 +199,18 @@ Game.prototype._updateAll = function ()  {
   self.player.update();
   self.player2.update();
 
-  //NUEVO
-  
-  self.goal.forEach(function(item) {
-    item.update();
-  })
-
-  // self.goal.update();
-
   self._checkAllCollision();
 
   self._updateUI();
 
 }
 
-Game.prototype.__createGoal = function(){
-  var self = this;
-
-  self.items.push(new Item(self.canvasElement,1500,20,30,10));
-
-
-}
-
 Game.prototype._renderAll = function ()  {
   var self = this;
 
-  // self.items.forEach(function(item) {
-  //   item.render();
-  // })
+  self.items.forEach(function(item) {
+    item.render();
+  })
 
   self.items2.forEach(function(item) {
     item.render();
@@ -284,22 +241,20 @@ Game.prototype._lanzarItems = function (screen)  {
 
   // Lanzamiento de Items typo 1 - Bolas de Energía
   if (screen === 1 && self.screen.sentDragon === false){
+    var randomY = Math.random() * self.screen.yMax * 0.8;
     if (Math.random() > 0.97) {
-      var randomY = Math.random() * self.screen.yMax * 0.8;
+     
       var newItem = new Item(self.canvasElement, self.width, randomY,10,self.screen.speedPlayer,1);
       self.items.push(newItem);
       
     }
       // Lanzamiento de Items typo 2 - Dragon Ball
     if (Math.random() > 0.99) {   
-      var randomY = Math.random() * self.screen.yMax * 0.8;
+      // var randomY = Math.random() * self.screen.yMax * 0.8;
       var newItem = new Item(self.canvasElement, self.width, randomY,10,self.screen.speedPlayer,2);
       self.items.push(newItem);
 
     }
-
-
-
   }
 
   //    self.screen       self.canvasElement,1,self.canvasElement.width-5,(self.canvasElement.height/2)+5,self.canvasElement.height-5);
@@ -308,16 +263,26 @@ Game.prototype._lanzarItems = function (screen)  {
 
   // Lanzamiento de Items typo 1 - Bolas de Energía
   if (screen === 2 && self.screen2.sentDragon === false){
+    var minY = self.canvasElement.height / 2 + 5;
+      var maxY = self.canvasElement.height - 55;
+      var randomY = Math.floor(Math.random() * (maxY - minY)) + minY; 
     if (Math.random() > 0.97) {
-      var randomY = Math.random() * ((self.screen2.yMax - self.screen2.yMin)+ self.screen2.yMin) * 0.8;
+        //  return Math.floor(Math.random() * (max - min)) + min;
+      // var randomY = Math.floor(Math.random() * ((self.canvasElement.height+50 - (self.canvasElement.height/2)+5))+ (self.canvasElement.height/2)) * 0.8;
+      // console.log(randomY);
+      // var minY = self.canvasElement.height / 2 + 5;
+      // var maxY = self.canvasElement.height - 55;
+      // var randomY = Math.floor(Math.random() * (maxY - minY)) + minY; 
+
       var newItem = new Item(self.canvasElement, self.screen2.xMax, randomY,10,self.screen2.speedPlayer,1);
       self.items2.push(newItem);
       
     }
       // Lanzamiento de Items typo 2 - Dragon Ball
     if (Math.random() > 0.99) {   
-      var randomY = Math.random() * self.screen2.yMax * 0.8;
-      var newItem = new Item(self.canvasElement, self.width, randomY,10,self.screen2.speedPlayer,2);
+   //   var randomY = Math.floor(Math.random() * ((self.canvasElement.height +50 - (self.canvasElement.height/2)+5))+ (self.canvasElement.height/2)) * 0.8;
+      // console.log(randomY);
+      var newItem = new Item(self.canvasElement, self.screen2.xMax, randomY,10,self.screen2.speedPlayer,2);
       self.items2.push(newItem);
 
     }
@@ -335,9 +300,10 @@ Game.prototype._checkAllCollision = function() {
       self.items.splice(idx, 1);
         // Si el Item es de tipo X, aumenta o disminuye velocidad
         if (item.type === 1)  {
-          self._speedDown();
+          self._speedDown(1);
         }else if (item.type === 2){
-          self._speedUp();
+          self._speedUp(1);
+          self.player.dragonBalls++;
         } else if (item.type === 3){
           self.screen.end = true;
         }
@@ -350,54 +316,80 @@ Game.prototype._checkAllCollision = function() {
       self.items2.splice(idx, 1);
         // Si el Item es de tipo X, aumenta o disminuye velocidad
         if (item.type === 1)  {
-          self._speedDown();
+          self._speedDown(2);
         }else if (item.type === 2){
-          self._speedUp();
+          self._speedUp(2);
+          self.player2.dragonBalls++;
         } else if (item.type === 3){
           self.screen2.end = true;
+          console.log('Lanzado dragon');
         }
     }
   });
 
 }
 
-Game.prototype._speedUp = function(){
+Game.prototype._speedUp = function(escenario){
   var self = this;
 
-  if (self.screen.speedPlayer < self.screen.speedMaxPlayer){
-    self.items.forEach(function(element,idx){
-      self.items[idx].vel += 1;
-    });
-    self.screen.speedPlayer += 1;
+  if (escenario === 1){
+    if (self.screen.speedPlayer < self.screen.speedMaxPlayer){
+      self.items.forEach(function(element,idx){
+        self.items[idx].vel += 1;
+      });
+      self.screen.speedPlayer += 1;
+    }
   }
-  console.log(self.screen.speedPlayer);
-  console.log(self.screen.distanciaActual);
+  if (escenario === 2){
+      if (self.screen2.speedPlayer < self.screen2.speedMaxPlayer){
+        self.items2.forEach(function(element,idx){
+          self.items2[idx].vel += 1;
+        });
+        self.screen2.speedPlayer += 1;
+      }
+  }
+  // console.log(self.screen.speedPlayer);
+  // console.log(self.screen.distanciaActual);
 
 }
-Game.prototype._speedDown = function(){
+Game.prototype._speedDown = function(escenario){
   var self = this;
-
-  // Controls the speed is not 0
-  if (self.screen.speedPlayer > self.screen.speedMinPlayer){
-    self.items.forEach(function(element,idx){
-      self.items[idx].vel -= 1;
-    });
-    self.screen.speedPlayer -= 1;
-    
+  
+  if (escenario === 1){
+    // Controls the speed is not 0
+    if (self.screen.speedPlayer > self.screen.speedMinPlayer){
+      self.items.forEach(function(element,idx){
+        self.items[idx].vel -= 1;
+      });
+      self.screen.speedPlayer -= 1;
+     
+    }
   }
+  if (escenario === 2){
+    if (self.screen2.speedPlayer > self.screen2.speedMinPlayer){
+      self.items2.forEach(function(element,idx){
+        self.items2[idx].vel -= 1;
+      });
+      self.screen2.speedPlayer -= 1;   
+    }
+  }
+
+
   // console.log(self.screen.speedPlayer);
   // console.log(self.screen.distanciaActual);
 
 }
 
 
-Game.prototype._playerNotArrived = function () {
+Game.prototype._playerNotArrivedP1 = function () {
   var self = this;
   
-  if (self.screen.distanciaActual < 1000 && self.screen.sentDragon == false){
+  if (self.screen.distanciaActual < 1000 && self.screen.sentDragon === false){
     var newItem = new Item(self.canvasElement, self.width, 10,self.canvasElement.height/3,self.screen.speedPlayer,3);
     self.items.push(newItem);
+    console.log(self.items);
     self.screen.sentDragon = true;
+    console.log("Crea el dragon 1");
   }
 
   if (self.screen.distanciaActual <= 0){
@@ -408,12 +400,41 @@ Game.prototype._playerNotArrived = function () {
   return true;
 }
 
+Game.prototype._playerNotArrivedP2 = function () {
+  var self = this;
+  
+  var minY = self.canvasElement.height / 2 + 5;
+  var maxY = self.canvasElement.height - 55;
+
+  if (self.screen2.distanciaActual < 1000 && self.screen2.sentDragon === false){
+   // var newItem = new Item(self.canvasElement, 300, 500,self.screen2.speedPlayer,3);
+    var newItem = new Item(self.canvasElement, self.width, self.canvasElement.height- 300, self.canvasElement.height/3,self.screen2.speedPlayer, 3);
+    self.items2.push(newItem);
+    console.log(self.items2)
+    self.screen2.sentDragon = true;
+    console.log("Crea el dragon 2");
+  }
+
+  if (self.screen2.distanciaActual <= 0){
+    console.log("Distancia negativa")
+    return false;
+  }
+
+
+  return true;
+}
+
+
 Game.prototype._updateUI = function() {
   var self = this;
 
-  self.scoreElement.innerText = self.score;
-  self.livesElement.innerText = self.screen.distanciaActual;
+  self.dragonBalls1Element.innerText = self.player.dragonBalls;
+  self.dragonBalls2Element.innerText = self.player2.dragonBalls;
+
+  self.distance1Element.innerText = self.screen.distanciaActual;
   // self.livesElement.innerText = self.player.lives;
+  self.distance2Element.innerText = self.screen2.distanciaActual;
+
   
 }
 

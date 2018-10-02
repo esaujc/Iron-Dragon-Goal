@@ -12,11 +12,17 @@ function main() {
   // -- Splash
   var splashElement = null;
   var splashButton = null;
+  var audio = new Audio("audio/dragon_ball_z_escenas_de_batalla.mp3");
+
+
 
   var handleSplashClick = function () {
   
   //  var audio = new Audio("audio/goku.wav");
   //  audio.play();
+   
+    // audio.muted = true;
+    audio.msPlayToDisabled = true;
     destroySplash();
     buildGame();
   }
@@ -26,12 +32,16 @@ function main() {
       <main class="splash container">
         <h1 class="splash__title">Dragon 'Goal'</h1>
         <button>Start</button>
+        
       </main>
     `)
+
+    // <audio src="audio/chalaheadchala.mp3" autoplay></audio>
     mainContainerElement.appendChild(splashElement);
     
     splashButton = document.querySelector('button');
-    splashButton.addEventListener('click', handleSplashClick)
+    splashButton.addEventListener('click', handleSplashClick);
+    
 
   }
   function destroySplash() {
@@ -48,6 +58,7 @@ function main() {
 
   function buildGame() {
     game = new Game(mainContainerElement);
+   audio.play();
     game.onOver(handleGameOver);
   }
   function destroyGame() {
