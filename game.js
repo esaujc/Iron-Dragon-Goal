@@ -20,10 +20,10 @@ Game.prototype._init = function () {
     <main class="game container">
       <header class="game__header">
        <div class="player1">
-          <img src="img/goku57x55.png" alt="Goku">
+          <img src="img/goku-face.png" alt="Goku">
           <div>
             <div class="distance1">
-              <span class="label">Remaining:</span>
+              <span class="label">Distance:</span>
               <span class="value"></span>
             </div>
             <div class="dragonBalls1">
@@ -32,12 +32,12 @@ Game.prototype._init = function () {
             </div>     
           </div>
         </div>
-
+       
         <div class="player2">
-        <img src="img/piccolo57x55.png" alt="Piccolo">
+        <img src="img/piccolo-face.png" alt="Piccolo">
         <div>
           <div class="distance2">
-            <span class="label">Remaining:</span>
+            <span class="label">Distance:</span>
             <span class="value"></span>
           </div>
           <div class="dragonBalls2">

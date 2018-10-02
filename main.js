@@ -29,10 +29,11 @@ function main() {
 
   function buildSplash() {
     splashElement = buildDom(`
-      <main class="splash container background">
-        <h1 class="splash__title">Dragon 'Goal'</h1>
-        <button>Start</button>
-        
+      <main class="background">
+        <div class="splash container">
+          <h1 class="splash__title">Dragon 'Goal'</h1>
+          <button>Start</button>
+        </div>
       </main>
     `)
 
