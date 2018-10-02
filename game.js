@@ -52,7 +52,11 @@ Game.prototype._init = function () {
         </div>
       </header>
       <div class="game__canvas">
-        <canvas class="canvas"></canvas>
+        <div class="game_wrapper">
+          <div class="screen1"></div>
+          <div class="screen2"></div>
+          <canvas class="canvas"></canvas>
+        </div>
       </div>
     </main>
   `)
@@ -216,6 +220,10 @@ Game.prototype._updateAll = function ()  {
 Game.prototype._renderAll = function ()  {
   var self = this;
 
+
+  self.screen.render(1);
+  self.screen2.render(2)
+
   self.items.forEach(function(item) {
     item.render();
   })
@@ -224,8 +232,7 @@ Game.prototype._renderAll = function ()  {
     item.render();
   })
 
-   self.screen.render();
-   self.screen2.render();
+   ;
   //self.screen3.render();
 
   self.player.render(1);
@@ -250,14 +257,14 @@ Game.prototype._lanzarItems = function (screen)  {
   // Lanzamiento de Items typo 1 - Bolas de Energía
   if (screen === 1 && self.screen.sentDragon === false){
     var randomY = Math.random() * self.screen.yMax * 0.8;
-    if (Math.random() > 0.97) {
+    if (Math.random() > 0.985) {
      
       var newItem = new Item(self.canvasElement, self.width, randomY,10,self.screen.speedPlayer,1);
       self.items.push(newItem);
       
     }
       // Lanzamiento de Items typo 2 - Dragon Ball
-    if (Math.random() > 0.99) {   
+    if (Math.random() > 0.985) {   
       // var randomY = Math.random() * self.screen.yMax * 0.8;
       var newItem = new Item(self.canvasElement, self.width, randomY,10,self.screen.speedPlayer,2);
       self.items.push(newItem);
@@ -274,7 +281,7 @@ Game.prototype._lanzarItems = function (screen)  {
     var minY = self.canvasElement.height / 2 + 5;
       var maxY = self.canvasElement.height - 55;
       var randomY = Math.floor(Math.random() * (maxY - minY)) + minY; 
-    if (Math.random() > 0.97) {
+    if (Math.random() > 0.985) {
         //  return Math.floor(Math.random() * (max - min)) + min;
       // var randomY = Math.floor(Math.random() * ((self.canvasElement.height+50 - (self.canvasElement.height/2)+5))+ (self.canvasElement.height/2)) * 0.8;
       // console.log(randomY);
@@ -287,7 +294,7 @@ Game.prototype._lanzarItems = function (screen)  {
       
     }
       // Lanzamiento de Items typo 2 - Dragon Ball
-    if (Math.random() > 0.99) {   
+    if (Math.random() > 0.985) {   
    //   var randomY = Math.floor(Math.random() * ((self.canvasElement.height +50 - (self.canvasElement.height/2)+5))+ (self.canvasElement.height/2)) * 0.8;
       // console.log(randomY);
       var newItem = new Item(self.canvasElement, self.screen2.xMax, randomY,10,self.screen2.speedPlayer,2);
@@ -420,7 +427,7 @@ Game.prototype._playerNotArrivedP2 = function () {
 
   if (self.screen2.distanciaActual < 1000 && self.screen2.sentDragon === false){
    // var newItem = new Item(self.canvasElement, 300, 500,self.screen2.speedPlayer,3);
-    var newItem = new Item(self.canvasElement, self.width, self.canvasElement.height- 300, self.canvasElement.height/3,self.screen2.speedPlayer, 3);
+    var newItem = new Item(self.canvasElement, self.width, self.canvasElement.height- 250, self.canvasElement.height/3,self.screen2.speedPlayer, 3);
     self.items2.push(newItem);
     console.log(self.items2)
     self.screen2.sentDragon = true;
