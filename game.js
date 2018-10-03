@@ -8,6 +8,9 @@ function Game(parent) {
   self.totalKamesRecievedWinner = 0;
   self.totalKamesRecievedLooser = 0;
 
+  self.kame = new Audio("./audio/kamehameha.wav");
+  self.kame2 = new Audio("./audio/kame-blueG.mp3");
+
 
   self.parentElement = parent;
   self.gameElement = null
@@ -396,6 +399,7 @@ Game.prototype._checkAllCollision = function() {
             self.totalKamesRecievedWinner = self.player.kamesRecieved;
             self.totalKamesRecievedLooser = self.player2.kamesRecieved;
         }else if (item.type === 4){
+          self.kame.play();
           self._speedUp(1,8); //Escenario y cuanto aumenta
         }
     }
@@ -421,6 +425,7 @@ Game.prototype._checkAllCollision = function() {
           self.totalKamesRecievedWinner = self.player2.kamesRecieved;
           self.totalKamesRecievedLooser = self.player.kamesRecieved;
         }else if (item.type === 4){
+          self.kame2.play();
           self._speedUp(2,8); //Escenario y cuanto aumenta
         }
     }
