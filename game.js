@@ -5,6 +5,8 @@ function Game(parent) {
   self.totalDragonBallsWinner = 0;
   self.totalDragonBallsLooser = 0;
   self.distanciaActualLooser = 0;
+  self.totalKamesRecievedWinner = 0;
+  self.totalKamesRecievedLooser = 0;
 
 
   self.parentElement = parent;
@@ -391,6 +393,8 @@ Game.prototype._checkAllCollision = function() {
             self.totalDragonBallsWinner = self.player.dragonBalls;
             self.totalDragonBallsLooser = self.player2.dragonBalls;
             self.distanciaActualLooser = self.screen2.distanciaActual;
+            self.totalKamesRecievedWinner = self.player.kamesRecieved;
+            self.totalKamesRecievedLooser = self.player2.kamesRecieved;
         }else if (item.type === 4){
           self._speedUp(1,8); //Escenario y cuanto aumenta
         }
@@ -414,6 +418,8 @@ Game.prototype._checkAllCollision = function() {
           self.totalDragonBallsWinner = self.player2.dragonBalls;
           self.totalDragonBallsLooser = self.player.dragonBalls;
           self.distanciaActualLooser = self.screen.distanciaActual;
+          self.totalKamesRecievedWinner = self.player2.kamesRecieved;
+          self.totalKamesRecievedLooser = self.player.kamesRecieved;
         }else if (item.type === 4){
           self._speedUp(2,8); //Escenario y cuanto aumenta
         }

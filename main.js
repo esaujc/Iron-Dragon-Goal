@@ -56,7 +56,7 @@ function main() {
                 </div>
                 <div class="controls-items">
                   <div class="dragon-ball-item"><img src="./img/Dragon_Ball_1-35x34.png"></div>
-                  <div class="dragon-ball-text">Pick a Dragon Ball to Increase your Speed and find faster the Magic Dragon.</div>
+                  <div class="dragon-ball-text">Pick a ragon Ball to Increase your Speed and find faster the Magic Dragon.</div>
                 </div>
                 <div class="controls-items">
                   <div class="kame-item"><img src="./img/ball01.png"></div>
@@ -123,7 +123,7 @@ function main() {
    
     window.setTimeout(function() {
       destroyGame();
-      buildGameover(game.winner, game.totalDragonBallsWinner,game.totalDragonBallsLooser,game.distanciaActualLooser);
+      buildGameover(game.winner, game.totalDragonBallsWinner,game.totalDragonBallsLooser,game.distanciaActualLooser,game.totalKamesRecievedWinner,game.totalKamesRecievedLooser);
       audio.pause();
       audio.currentTime = 0;
       audio2.play();
@@ -153,14 +153,16 @@ function main() {
     
   }
 
-  function buildGameover(winnerPlayer, totalDragonBallsWinner,totalDragonBallsLooser,distanceLooser) {
+  function buildGameover(winnerPlayer, totalDragonBallsWinner,totalDragonBallsLooser,distanceLooser,kamesRecieved,kamesRecieved2) {
     gameoverElement = buildDom(`
       <main class="background-gameoverP1">
        <div class="gameover">
-        <h1>Winner Player<span class="winner"></span></h1>
+        <h1>Winner Player <span class="winner"></span></h1>
         <p>Dragon Balls Collected: <span class="dragonBallsWinner"></span></p>
+        <p>Kames Recieved: <span class="kamesRecievedWinner"></span></p>
         <h1>Looser Player<span class="looser"></span></h1>
         <p>Dragon Balls Collected: <span class="dragonBallsLooser"></span></p>
+        <p>Kames Recieved: <span class="kamesRecievedLooser"></span></p>
         <p>Distance Remaining: <span class="distanceLooser"></span></p>
 
         <button>Restart</button>
@@ -175,12 +177,11 @@ function main() {
       // player1WinnerElement.classList.remove("background-gameoverP1");
       // player1WinnerElement.classList.add("background-gameoverP2");
       player1WinnerElement.classList.replace("background-gameoverP1", "background-gameoverP2");
-
     }
 
     // Mirar esto: div.classList.replace("foo", "bar");
 
-
+    
 
     gameoverButton = document.querySelector('button');
     gameoverButton.addEventListener('click', handleGameoverClick);
@@ -195,6 +196,11 @@ function main() {
     dragonBallLooserElement.innerText = totalDragonBallsLooser;
     var distanceLooserElement = document.querySelector('.distanceLooser');
     distanceLooserElement.innerText = distanceLooser;
+
+    var kamesWinnerElement = document.querySelector('.kamesRecievedWinner');
+    kamesWinnerElement.innerText = kamesRecieved;
+    var kamesLooserElement = document.querySelector('.kamesRecievedLooser');
+    kamesLooserElement.innerText = kamesRecieved2;
 
     
   }

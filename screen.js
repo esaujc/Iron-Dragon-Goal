@@ -9,8 +9,8 @@ function Screen(canvas,xMin,xMax,yMin,yMax){
   self.color;
   //self.items = items; //Esto es un array
   //self.player = player;
-  self.distanciaInicial = 10000;
-  self.distanciaActual = 10000;
+  self.distanciaInicial = 5000;
+  self.distanciaActual = 5000;
   self.sentDragon = false;
   self.speedPlayer = 4;
   self.speedMinPlayer = 4;
@@ -18,9 +18,6 @@ function Screen(canvas,xMin,xMax,yMin,yMax){
   self.end = false;
 }
 
-Screen.prototype.checkGoal = function(distanciaInicial, distanciaActual){
-
-}
 
 Screen.prototype.render = function(escenario) {
   var self = this;
@@ -29,19 +26,6 @@ Screen.prototype.render = function(escenario) {
   self.ctx.strokeRect(self.xMin, self.yMin, self.xMax, self.yMax);
   self.distanciaActual -= self.speedPlayer; 
 
-  // var img = new Image();
-  // if (escenario === 1){
-  //   img.src ="./img/landscapebig.jpg";
-  // }
-  // if (escenario === 2){
-  //   img.src ="./img/Kame_House.jpg";
-  // }
-  // self.ctx.drawImage(img, self.xMin+200, self.yMin+200, self.xMax+200,self.yMax+200,self.xMin, self.yMin, self.xMax,self.yMax);
-
-  // self.ctx.drawImage(img, self.xMin+200, self.yMin+200, self.xMax+200,self.yMax+200,self.xMin, self.yMin, self.xMax,self.yMax);
-
 }
-// Render
-//Collitions -> Player- >Screen Sacamos las coordenadas
-//GetCoordenate()
+
 

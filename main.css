@@ -99,7 +99,7 @@ button.margin-btw-startbuttons {
 }
 
 /* --- components --- */
-.splash, .gameover {
+.splash {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,6 +107,16 @@ button.margin-btw-startbuttons {
   bottom:100px;
   left: 120px;
 }
+.gameover{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top:90px;
+  left: 110px;
+  color:black;
+}
+
 
 
 
