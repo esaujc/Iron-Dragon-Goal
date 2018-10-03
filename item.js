@@ -39,7 +39,6 @@ Item.prototype.render = function () {
     if (self.type === 3){
       img.src = "img/dragol-goal.png";
       self.ctx.drawImage(img, self.x, self.y, 200,250);
-      console.log('Pinta dragon');
 
     }
 

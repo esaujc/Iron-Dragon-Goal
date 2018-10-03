@@ -11,10 +11,12 @@ function Player(canvas) {
   self.vel = 5;
   self.size = 60;
   self.direction = 0;
+  self.directionX = 0;
   self.lives = 5;
   self.screen = 1;
   self.color;
   self.dragonBalls = 0;
+  self.kamesRecieved = 0;
   self.ctx = canvas.getContext('2d');
 }
 
@@ -22,6 +24,8 @@ Player.prototype.update = function () {
   var self = this;
 
   self.y += (self.vel * self.direction);
+  self.x += (self.vel * self.directionX);
+
   self._checkLimits();
 }
 
@@ -49,8 +53,14 @@ Player.prototype.render = function (numberPlayer) {
 Player.prototype.setDirection = function (direction) {
   var self = this;
 
-  self.direction = direction
+  self.direction = direction;
 }
+Player.prototype.setDirectionX = function (direction) {
+  var self = this;
+
+  self.directionX = direction;
+}
+
 
 // Player.prototype._checkLimits = function () {
 //   var self = this;
@@ -64,12 +74,18 @@ Player.prototype.setDirection = function (direction) {
 
 Player.prototype._checkLimits = function () {
   var self = this;
-  // console.log(self.yMin);
   if (self.y < self.yMin) {
     self.setDirection(1);
   }
   else if (self.y > self.yMax - self.size) {
     self.setDirection(-1);
+  }
+
+  if (self.x < self.xMin) {
+    self.setDirectionX(0);
+  }
+  else if (self.x > self.xMax - 300) {
+    self.setDirectionX(-1);
   }
 }
 
