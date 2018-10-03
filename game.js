@@ -2,7 +2,10 @@ function Game(parent) {
   var self = this;
 
   self.winner = 0;
-  self.totalDragonBalls = 0;
+  self.totalDragonBallsWinner = 0;
+  self.totalDragonBallsLooser = 0;
+  self.distanciaActualLooser = 0;
+
 
   self.parentElement = parent;
   self.gameElement = null
@@ -31,7 +34,7 @@ Game.prototype._init = function () {
               <span class="value"></span>
             </div>     
             <div class="kamesRecieved">
-               <span class="label">Kames Eaten: </span>
+               <span class="label">Kames Recieved: </span>
                <span class="value"></span>
             </div> 
           </div>
@@ -51,7 +54,7 @@ Game.prototype._init = function () {
             <span class="value"></span>
           </div>     
           <div class="kamesRecieved2">
-          <span class="label">Kames Eaten: </span>
+          <span class="label">Kames Recieved: </span>
             <span class="value"></span>
           </div> 
         </div>
@@ -327,11 +330,16 @@ Game.prototype._lanzarItems = function (screen)  {
       self.items.push(newItem);
       // self.screenOneElement.style.animationDuration = screen.speedPlayer+"s";
     }
+       // Lanzamiento de Items typo 4 - Kame Supersónico
+       if (Math.random() > 0.999) {   
+        // var randomY = Math.random() * self.screen.yMax * 0.8;
+        var newItem = new Item(self.canvasElement, self.width, randomY,10,6,4);
+        self.items.push(newItem);
+        // self.screenOneElement.style.animationDuration = screen.speedPlayer+"s";
+      }
   }
 
-  //    self.screen       self.canvasElement,1,self.canvasElement.width-5,(self.canvasElement.height/2)+5,self.canvasElement.height-5);
-        //function Screen(canvas,xMin,xMax,yMin,yMax){
-// function Item(canvas, x, y, size, vel,type) {
+
 
   // Lanzamiento de Items typo 1 - Bolas de Energía
   if (screen === 2 && self.screen2.sentDragon === false){
@@ -339,12 +347,6 @@ Game.prototype._lanzarItems = function (screen)  {
       var maxY = self.canvasElement.height - 55;
       var randomY = Math.floor(Math.random() * (maxY - minY)) + minY; 
     if (Math.random() > 0.98) {
-        //  return Math.floor(Math.random() * (max - min)) + min;
-      // var randomY = Math.floor(Math.random() * ((self.canvasElement.height+50 - (self.canvasElement.height/2)+5))+ (self.canvasElement.height/2)) * 0.8;
-      // var minY = self.canvasElement.height / 2 + 5;
-      // var maxY = self.canvasElement.height - 55;
-      // var randomY = Math.floor(Math.random() * (maxY - minY)) + minY; 
-
       var newItem = new Item(self.canvasElement, self.screen2.xMax, randomY,10,self.screen2.speedPlayer,1);
       self.items2.push(newItem);
       
@@ -353,6 +355,13 @@ Game.prototype._lanzarItems = function (screen)  {
     if (Math.random() > 0.98) {   
    //   var randomY = Math.floor(Math.random() * ((self.canvasElement.height +50 - (self.canvasElement.height/2)+5))+ (self.canvasElement.height/2)) * 0.8;
       var newItem = new Item(self.canvasElement, self.screen2.xMax, randomY,10,self.screen2.speedPlayer,2);
+      self.items2.push(newItem);
+
+    }
+     // Lanzamiento de Items typo 4 - Kame Supersónico - Va a velocidad Fija para poder pillarlo
+    if (Math.random() > 0.999) {   
+   //   var randomY = Math.floor(Math.random() * ((self.canvasElement.height +50 - (self.canvasElement.height/2)+5))+ (self.canvasElement.height/2)) * 0.8;
+      var newItem = new Item(self.canvasElement, self.screen2.xMax, randomY,10,6,4);
       self.items2.push(newItem);
 
     }
@@ -373,13 +382,17 @@ Game.prototype._checkAllCollision = function() {
           self._speedDown(1);
           self.player.kamesRecieved++;
         }else if (item.type === 2){
-          self._speedUp(1);
+          self._speedUp(1,1);
           self.player.dragonBalls++;
         } else if (item.type === 3){
           self.screen.end = true;  // con esto hay contacto con el objeto
           //if (self.winner === 0)
             self.winner = 1; // Se utiliza para saber quien ha llegado primero 
-            self.totalDragonBalls = self.player.dragonBalls;
+            self.totalDragonBallsWinner = self.player.dragonBalls;
+            self.totalDragonBallsLooser = self.player2.dragonBalls;
+            self.distanciaActualLooser = self.screen2.distanciaActual;
+        }else if (item.type === 4){
+          self._speedUp(1,8); //Escenario y cuanto aumenta
         }
     }
   });
@@ -393,43 +406,52 @@ Game.prototype._checkAllCollision = function() {
           self._speedDown(2);
           self.player2.kamesRecieved++;
         }else if (item.type === 2){
-          self._speedUp(2);
+          self._speedUp(2,1); //Escenario y cuanto aumenta
           self.player2.dragonBalls++;
         } else if (item.type === 3){
           self.screen2.end = true;
           self.winner = 2;
-          self.totalDragonBalls = self.player2.dragonBalls;
-
+          self.totalDragonBallsWinner = self.player2.dragonBalls;
+          self.totalDragonBallsLooser = self.player.dragonBalls;
+          self.distanciaActualLooser = self.screen.distanciaActual;
+        }else if (item.type === 4){
+          self._speedUp(2,8); //Escenario y cuanto aumenta
         }
     }
   });
 
 }
 
-Game.prototype._speedUp = function(escenario){
+Game.prototype._speedUp = function(escenario,speedIncreased){
   var self = this;
 
   if (escenario === 1){
     if (self.screen.speedPlayer < self.screen.speedMaxPlayer){
       self.items.forEach(function(element,idx){
-        self.items[idx].vel += 1;
+        self.items[idx].vel += speedIncreased;
       });
-      self.screen.speedPlayer += 1;
-      
-      //  self.screenUp = self.screenOneElement.style.animationDuration = (self.screen.speedPlayer-2)+"s";
-      //  console.log(self.screenOneElement.style.animationDuration);
-
-      // console.log(self.speedUp);
-
+      self.screen.speedPlayer += speedIncreased;
     }
+    // if (speedIncreased === 4){
+    //   self.items.forEach(function(element,idx){
+    //     self.items[idx].vel += 5;
+    //   });
+    //   self.screen.speedPlayer += 5;
+    // }
   }
   if (escenario === 2){
       if (self.screen2.speedPlayer < self.screen2.speedMaxPlayer){
         self.items2.forEach(function(element,idx){
-          self.items2[idx].vel += 1;
+          self.items2[idx].vel += speedIncreased;
         });
-        self.screen2.speedPlayer += 1;
+        self.screen2.speedPlayer += speedIncreased;
       }
+      // if (speedIncreased === 4){
+      //   self.items2.forEach(function(element,idx){
+      //     self.items2[idx].vel += speedIncreased;
+      //   });
+      //   self.screen2.speedPlayer += speedIncreased;
+      // }
   }
   
 

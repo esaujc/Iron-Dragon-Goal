@@ -38,14 +38,35 @@ function main() {
     splashElement = buildDom(`
       <main class="background">
         <div class="splash container">
-          <h1 class="splash__title">Dragon 'Goal'</h1>
-          <button>Start</button>
+          <button class="margin-btw-startbuttons">Start</button>
           
           <button id="modal-instructions">How to Play</button>
           <div id="myModal" class="modal">
             <div class="modal-content">
               <span class="close">&times;</span>
-              <p>Some text in the Modal..</p>
+              <div class="controls-container">
+              <p>HOW TO PLAY</p>
+                <div class="controls-goku">
+                  <div class="goku-picture"><img src="./img/goku57x55.png"></div>
+                  <div class="goku-controls"><img src="./img/player1.png"></div>
+                </div>
+                <div class="controls-piccolo">
+                  <div class="piccolo-picture"><img src="./img/piccolo57x55.png"></div>
+                  <div class="piccolo-controls"><img src="./img/player2.png"></div>                  
+                </div>
+                <div class="controls-items">
+                  <div class="dragon-ball-item"><img src="./img/Dragon_Ball_1-35x34.png"></div>
+                  <div class="dragon-ball-text">Pick a Dragon Ball to Increase your Speed and find faster the Magic Dragon.</div>
+                </div>
+                <div class="controls-items">
+                  <div class="kame-item"><img src="./img/ball01.png"></div>
+                  <div class="kame-text">When a Energy ball hits you, your Speed will Decrease. Avoid to hit them.</div>
+                </div>
+                <div class="controls-items">
+                  <div class="kame-item"><img src="./img/kame-azul.png"></div>
+                  <div class="kame-text"> Kame hame ha!!! </div>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -102,7 +123,7 @@ function main() {
    
     window.setTimeout(function() {
       destroyGame();
-      buildGameover(game.winner, game.totalDragonBalls);
+      buildGameover(game.winner, game.totalDragonBallsWinner,game.totalDragonBallsLooser,game.distanciaActualLooser);
       audio.pause();
       audio.currentTime = 0;
       audio2.play();
@@ -132,12 +153,16 @@ function main() {
     
   }
 
-  function buildGameover(winnerPlayer, totalDragonBalls) {
+  function buildGameover(winnerPlayer, totalDragonBallsWinner,totalDragonBallsLooser,distanceLooser) {
     gameoverElement = buildDom(`
       <main class="background-gameoverP1">
        <div class="gameover">
         <h1>Winner Player<span class="winner"></span></h1>
-        <p>Dragon Balls Collected: <span class="dragonBalls"></span></p>
+        <p>Dragon Balls Collected: <span class="dragonBallsWinner"></span></p>
+        <h1>Looser Player<span class="looser"></span></h1>
+        <p>Dragon Balls Collected: <span class="dragonBallsLooser"></span></p>
+        <p>Distance Remaining: <span class="distanceLooser"></span></p>
+
         <button>Restart</button>
       </div>
       </main>
@@ -162,16 +187,16 @@ function main() {
 
     var winnerElement = document.querySelector('.winner');
     winnerElement.innerText = winnerPlayer;
-    var dragonBallElement = document.querySelector('.dragonBalls');
-    dragonBallElement.innerText = totalDragonBalls;
-    // var player1WinnerElement = document.querySelector('main .background-gameover');
-    // var imagen = player1WinnerElement[0];
-    // imagen.style = ('.background-gameoverP2');
+    var dragonBallElement = document.querySelector('.dragonBallsWinner');
+    dragonBallElement.innerText = totalDragonBallsWinner;
+    var looserElement = document.querySelector('.looser');
+    // looserElement.innerText = winnerPlayer; ////OJO
+    var dragonBallLooserElement = document.querySelector('.dragonBallsLooser');
+    dragonBallLooserElement.innerText = totalDragonBallsLooser;
+    var distanceLooserElement = document.querySelector('.distanceLooser');
+    distanceLooserElement.innerText = distanceLooser;
 
-    // self.canvasElement.setAttribute('height', self.height);
     
-    // div.classList.add("anotherclass");
-
   }
 
   function destroyGameover() {

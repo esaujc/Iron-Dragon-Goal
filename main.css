@@ -13,7 +13,8 @@ body {
   background-color: rgb(32, 92, 84);
   color: white;
   /* background-color: rgb(24, 61, 223); */
-
+  font-family: Verdana, Tahoma, sans-serif;
+  font-weight: 600;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -29,6 +30,28 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
 
+}
+
+button {
+  width:150px;
+  height: 40px;
+  color: red;
+  font-weight: 800;
+  font-size: 1em;
+  text-transform: uppercase;
+  border: 4px solid black;
+  border-radius: 3px;
+  transition-duration: 0.7s;
+  background-color: yellow;
+}
+
+button:hover {
+  background-color: red;
+  color: yellow;
+}
+
+button.margin-btw-startbuttons {
+  margin-bottom: 20px;
 }
 
 .background{
@@ -82,7 +105,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   position: absolute;
   bottom:100px;
-  left: 50px;
+  left: 120px;
 }
 
 
@@ -108,39 +131,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .game__canvas {
   width: 100%;
-  /* height: 80%; */
-  /* position: absolute; */
-
   position: relative;
   width: 100%;
-   height: 90%; 
-  
-  /* background-image: url('./img/desert.gif');
-  background-repeat: repeat; */
-  
-
-
-   /* background: url('./img/desert.gif') no-repeat center center fixed; */
-/*        background-size: cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        -o-background-size: cover; */
-  /* transform: scaleX(-1);   */
-
-          /* Rellenamos el fondo
-          min-height: 100%;
-          min-width: 800px;
-   
-          /* Escalamiento proporcional */
-          /* width: 100%;
-          height: auto; */
-   
-          /* Posicionamiento */
-          /* position: fixed;
-          top: 0;
-          left: 0;  */
-}
-
+  height: 90%; 
+}  
 
 /* Splash Header */
 .player1{
@@ -169,12 +163,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .canvas {
-  /* background-image: url('./img/landscapebig.jpg');
-  background-position:  center;
-  background-size: cover; */
-  /* background-position:  center;
-  display: flex;
-  flex-direction: column; */
   position: absolute;
   left: 0;
   height: 100%;
@@ -214,19 +202,12 @@ h1, h2, h3, h4, h5, h6 {
   top:50%;
 }
 .middle{
-  /* background-image: url('./img/title.png'); */
-  /* background-position:  center;
-  background-size: 100%; */
   /* display:flex; */
   height: 42px;
   /* width: 105px; */
   
 
 }
-/* .middle img{
-  height: 200px;
-  width: 30px;
-} */
 
 
 /* MODAL INSTRUCTIONS */
@@ -241,7 +222,8 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(106, 232, 236, 0.315); /* Black w/ opacity */
+  color: black;
 }
 
 /* Modal Content/Box */
@@ -249,8 +231,9 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  border: 5px solid black;
+  width: 60%; /* Could be more or less, depending on screen size */
+  /* height: 70%; */
 }
 
 /* The Close Button */
@@ -266,4 +249,73 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
   text-decoration: none;
   cursor: pointer;
+
+
 }
+
+/* MODAL BOX ::: CONTENT */
+
+div.controls-container {
+  display: flex;
+  flex-direction: column;
+}
+div.controls-container p{
+  text-align: right;
+  font-weight: 600;
+  font-size: 2em;
+
+}
+div.controls-goku {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* flex-direction: row; */
+}
+
+    div.goku-picture {
+      margin: auto 0;
+      padding-left: 50px;
+    }
+    
+    div.goku-controls {
+      /* margin: auto auto; */
+      /* width: 50%; */
+    }
+            div.goku-controls img {
+              width: 50%;
+              height: 50%;
+            }
+
+div.controls-piccolo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+    div.piccolo-picture {
+      margin: auto 0;
+      padding-left: 50px;
+    }
+
+    div.piccolo-controls {
+      /* margin: auto auto; */
+    }
+          div.piccolo-controls img {
+            width: 50%;
+            height: 50%;
+          }
+
+div.controls-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+    div.kame-item, div.dragon-ball-item {
+      margin: auto 0;
+      padding-left: 50px
+    }
+    div.kame-text, div.dragon-ball-text {
+      text-align: left;
+      /* padding-right: 250px; */
+    }
+

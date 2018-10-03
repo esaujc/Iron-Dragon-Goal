@@ -38,8 +38,11 @@ Item.prototype.render = function () {
     }
     if (self.type === 3){
       img.src = "img/dragol-goal.png";
-      self.ctx.drawImage(img, self.x, self.y, 200,250);
-
+      self.ctx.drawImage(img, self.x, self.y, 200,260);
+    }
+    if (self.type === 4){
+      img.src = "img/kame-azul.png";
+      self.ctx.drawImage(img, self.x, self.y, 55,40);
     }
 
   // }
