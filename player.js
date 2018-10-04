@@ -62,16 +62,6 @@ Player.prototype.setDirectionX = function (direction) {
 }
 
 
-// Player.prototype._checkLimits = function () {
-//   var self = this;
-//   if (self.y < 0) {
-//     self.setDirection(1);
-//   }
-//   else if (self.y > self.ctx.canvas.height - self.size) {
-//     self.setDirection(-1);
-//   }
-// }
-
 Player.prototype._checkLimits = function () {
   var self = this;
   if (self.y < self.yMin) {
@@ -104,10 +94,3 @@ Player.prototype.checkCollision = function (object) {
 
   return false;
 }
-
-// Player.prototype.collided = function () {
-//   var self = this;
-
-//   self.lives -= 1;
-
-// }

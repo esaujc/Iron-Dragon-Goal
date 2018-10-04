@@ -7,8 +7,6 @@ function Screen(canvas,xMin,xMax,yMin,yMax){
   self.yMax = yMax;
   self.ctx = canvas.getContext('2d');
   self.color;
-  //self.items = items; //Esto es un array
-  //self.player = player;
   self.distanciaInicial = 50000;
   self.distanciaActual = 50000;
   self.sentDragon = false;

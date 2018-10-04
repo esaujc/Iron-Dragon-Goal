@@ -169,12 +169,12 @@ button.margin-btw-startbuttons {
   height: 40px;
 }
 .player1 .distance1{
-  margin: 5px;
-  font-size: 20px;
+  margin: 2px;
+  font-size: 16px;
 }
 .player2 .distance2{
-  margin: 5px;
-  font-size: 20px;
+  margin: 2px;
+  font-size: 16px;
 }
 
 .canvas {
@@ -333,5 +333,9 @@ div.controls-items {
       text-align: left;
       /* padding-right: 250px; */
     }
+
+.dragonBalls1, .dragonBalls2, .kamesRecieved, .kamesRecieved2{
+  font-size:13px;
+}
     
 

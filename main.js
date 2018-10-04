@@ -56,7 +56,7 @@ function main() {
                 </div>
                 <div class="controls-items">
                   <div class="dragon-ball-item"><img src="./img/Dragon_Ball_1-35x34.png"></div>
-                  <div class="dragon-ball-text">Pick a ragon Ball to Increase your Speed and find faster the Magic Dragon.</div>
+                  <div class="dragon-ball-text">Pick a Dragon Ball to Increase your Speed and find faster the Magic Dragon.</div>
                 </div>
                 <div class="controls-items">
                   <div class="kame-item"><img src="./img/ball01.png"></div>
@@ -64,11 +64,11 @@ function main() {
                 </div>
                 <div class="controls-items">
                   <div class="kame-item"><img src="./img/kame-azul.png"></div>
-                  <div class="kame-text"> Kame hame ha!!! </div>
+                  <div class="kame-text"> Kame hame ha!!! Pick it!</div>
                 </div>
                 <div class="controls-items">
                   <div class="kame-item"><img src="./img/dragol-goal-instructions.png"></div>
-                  <div class="kame-text"> Go fast and find the Magic Dragon and make your dreams true!!</div>
+                  <div class="kame-text"> Go fast and find the Magic Dragon and make your dreams come true!!</div>
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@
 **Dragon 'Goal'**
 
 ## Description
-Goku and friends are flying trying to find the the sacred Dragon, dodging Kame-ha and picking Dragon Balls.
+Goku and Piccolo are flying trying to find the the sacred Dragon, dodging Kame-ha and picking Dragon Balls.
 
 
 
@@ -29,17 +29,24 @@ Goku and friends are flying trying to find the the sacred Dragon, dodging Kame-h
 
 Game()
 
-_init
-_startLoop();
-Game.prototype.buildDom();
-Game.prototype._updateAll()
-Game.prototype._renderAll()
-Game.prototype._clearAll()
-Game.prototype._spawnEnemy() 
-Game.prototype._checkAllCollision()
-Game.prototype.onOver()
-Game.prototype.destroy()
-Game.prototype._sendGoal();
+Game.prototype._init
+Game.prototype._initGameElements
+Game.prototype._startLoop();
+Game.prototype.buildDom;
+
+Game.prototype._updateAll
+Game.prototype._renderAll
+Game.prototype._clearAll
+Game.prototype._lanzarItems
+Game.prototype._checkAllCollision
+Game.prototype._speedUp
+Game.prototype._speedDown
+Game.prototype._playerNotArrivedP1
+Game.prototype._playerNotArrivedP2
+Game.prototype._updateUI
+Game.prototype.onOver
+Game.prototype.destroy
+
 
 ```
 
@@ -48,22 +55,29 @@ Player.js
 
 Player(canvas) {
 
-  self.x 
+  self.x
   self.y
-  self.vel 
+  self.xMin
+  self.yMin
+  self.xMax
+  self.yMin
+  self.vel
   self.size
   self.direction
+  self.directionX
+  self.color;
+  self.dragonBalls
+  self.kamesRecieved
   self.ctx
 }
 
-Player.prototype.update()
-Player.prototype.render()
-Player.prototype.setDirection()
-Player.prototype._checkLimits()
-Player.prototype.checkCollision()
-Player.prototype.collided()
-Player.prototype.itemIncrease() //Incrementa la velocidad del player hacia la meta
-Player.prototype.itemDecrease()
+Player.prototype.update
+Player.prototype.render
+Player.prototype.setDirection
+Player.prototype.setDirectionX
+Player.prototype._checkLimits
+Player.prototype.checkCollision
+
 
 ```
 
@@ -72,28 +86,23 @@ Player.prototype.itemDecrease()
 ```
 Item.js
 
-Item(canvas, x, y, size, vel) {
+Item(canvas, x, y, size, vel, type) {
 
   self.x 
   self.y 
+  self.color
   self.vel 
   self.size
   self.direction
   self.ctx
+  self.type
 }
 
-Item.prototype.update()
-Item.prototype.render()
-Item.prototype.isDeath()
+Item.prototype.update
+Item.prototype.render
+Item.prototype.isDeath
+Item.prototype.collided
 
-//Herencia
-function ItemSpeedUpDown(velocidad)
-ItemSpeedUpDown.prototype = Object.create(Item.prototype);
-ItemSpeedUpDown.prototype.constructor = ItemSpeedUpDown;
-
-function ItemGoal(distancia)
-ItemGoal.prototype = Object.create(Item.prototype);
-ItemGoal.prototype.constructor = ItemGoal;
 
 ```
 
@@ -106,14 +115,18 @@ Screen(canvas,player,xMin,xMax,yMin,yMax ){
   self.xMax
   self.yMin
   self.yMax
+  self.color
   self.ctx
-  self.items
-  self.player
   self.distanciaInicial
   self.distanciaActual
+  self.sentDragon 
+  self.speedPlayer
+  self.speedMinPlayer
+  self.speedMaxPlayer
+  self.end
 }
 
-Screen.prototype.checkGoal(distanciaInicial, distanciaActual)
+Screen.prototype.render
 
 ```
 
@@ -123,20 +136,21 @@ Screen.prototype.checkGoal(distanciaInicial, distanciaActual)
   - buildSplash();
   - destroyGameover();
   - buildGame();
-  - buildInstructions();*
+  - buildInstructions();* Implemented in different way
   - destroyInstructions();*
-  - buildPlayerSelector();*
+  - buildPlayerSelector();* Not implemented
 - gameScreen
   - destroySplash();
   - buildGameover();
   - destroyGameover();
-  - destroyPlayerSelector();*
+  - destroyPlayerSelector();* Not implemented
 - gameoverScreen
   - destroyGame();
   - buildGame();
   - buildSplash();
 - instructions *
-- playerSelector *
+  - Modal used.
+- playerSelector * Not implemented
   - destroySplash();
   - destroyGameover();
   - buildGame();
@@ -159,29 +173,31 @@ Task definition in order of priority
   - Control Items Player 1 are always inside its track. (Player and Screen Collition)
   - Control Items Player 2 are always inside its track. (Player and Screen Collition)
   - Control the color of items.
+  - Add movement in both screens separately.
 3. Collition Control.
   - When a collition occurs with a player and and item:
-    - Items that increase speed. - function ItemSpeedUpDown(velocidad)
-    - Items that decrease speed. - function ItemSpeedUpDown(velocidad)
+    - Items that increase speed.  _SpeedDown()
+    - Items that decrease speed.  _SpeedDown()
 4. Arrive to the Goal and finish the game.
-  - Check the distance and send the object Goal to the player.  - function ItemGoal(distancia)
+  - Check the distance and send the object Goal to the player when distance to the finish is close.  
   - Control that after Goal item is sent, no more Items are sent.
-  - Control when the collition with this Goal item finish the game (function checkGoal())
+  - Control when the collition with this Goal item finish the game.
+5. 3 types of items:
+  - Dragon Ball - Increase speed.
+  - Yellow Kame - Decrease speed.
+  - Kame hame ha! - ??? Try it.
 
-
-## Links
-
-
-### Trello
-[Link url](https://trello.com)
+After that:
+6. Add separate backgrounds with movement.
+7. Add sound and music.
 
 
 ### Git
 URls for the project repo and deploy
-[Link Repo](http://github.com)
-[Link Deploy](http://github.com)
+[Link Repo](https://github.com/esaujc)
+[Link Deploy](https://esaujc.github.io/Iron-Dragon-Goal/)
 
 
 ### Slides
 URls for the project presentation (slides)
-[Link Slides.com](http://slides.com)
+[Link Slides.com](https://slides.com/esaujc/deck/fullscreen)

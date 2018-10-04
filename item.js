@@ -58,17 +58,6 @@ Item.prototype.isDeath = function () {
   return (self.x + self.size) < 0;
 }
 
-// function ItemSpeedUp(currentVel,canvas, x, y, size, vel){
-//   var self = this;
-  
-//   Item.call(self,canvas, x, y, size, vel);
-//   self.currentVel = currentVel;
-
-// }
-// // Esto conecta el constructor hijo con el padre
-// ItemSpeedUp.prototype = Object.create(Item.prototype);
-// ItemSpeedUp.prototype.constructor = ItemSpeedUp;
-
 
 Item.prototype.collided = function () {
   var self = this;
