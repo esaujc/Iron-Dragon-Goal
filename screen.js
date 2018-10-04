@@ -9,8 +9,8 @@ function Screen(canvas,xMin,xMax,yMin,yMax){
   self.color;
   //self.items = items; //Esto es un array
   //self.player = player;
-  self.distanciaInicial = 40000;
-  self.distanciaActual = 40000;
+  self.distanciaInicial = 50000;
+  self.distanciaActual = 50000;
   self.sentDragon = false;
   self.speedPlayer = 4;
   self.speedMinPlayer = 4;

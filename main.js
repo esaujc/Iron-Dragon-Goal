@@ -66,6 +66,10 @@ function main() {
                   <div class="kame-item"><img src="./img/kame-azul.png"></div>
                   <div class="kame-text"> Kame hame ha!!! </div>
                 </div>
+                <div class="controls-items">
+                  <div class="kame-item"><img src="./img/dragol-goal-instructions.png"></div>
+                  <div class="kame-text"> Go fast and find the Magic Dragon and make your dreams true!!</div>
+                </div>
               </div>
             </div>
 
@@ -157,10 +161,10 @@ function main() {
     gameoverElement = buildDom(`
       <main class="background-gameoverP1">
        <div class="gameover">
-        <h1>Winner Player <span class="winner"></span></h1>
+        <h1>Winner <span class="winner"></span></h1>
         <p>Dragon Balls Collected: <span class="dragonBallsWinner"></span></p>
         <p>Kames Recieved: <span class="kamesRecievedWinner"></span></p>
-        <h1>Looser Player<span class="looser"></span></h1>
+        <h1>Looser<span class="looser"></span></h1>
         <p>Dragon Balls Collected: <span class="dragonBallsLooser"></span></p>
         <p>Kames Recieved: <span class="kamesRecievedLooser"></span></p>
         <p>Distance Remaining: <span class="distanceLooser"></span></p>
@@ -186,8 +190,8 @@ function main() {
     gameoverButton = document.querySelector('button');
     gameoverButton.addEventListener('click', handleGameoverClick);
 
-    var winnerElement = document.querySelector('.winner');
-    winnerElement.innerText = winnerPlayer;
+    // var winnerElement = document.querySelector('.winner');
+    // winnerElement.innerText = winnerPlayer;
     var dragonBallElement = document.querySelector('.dragonBallsWinner');
     dragonBallElement.innerText = totalDragonBallsWinner;
     var looserElement = document.querySelector('.looser');
